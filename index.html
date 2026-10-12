@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orbit — Ship faster with one workspace</title>
+    <meta
+      name="description"
+      content="Orbit unifies product, engineering, and customer insights so teams can plan, ship, and grow from a single modern workspace."
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+            },
+            colors: {
+              ink: {
+                50: "#f4f6fb",
+                100: "#e8ecf6",
+                800: "#1b2340",
+                900: "#0b1020",
+                950: "#070b16",
+              },
+              accent: {
+                400: "#7c8cff",
+                500: "#6366f1",
+                600: "#4f46e5",
+              },
+            },
+            boxShadow: {
+              glow: "0 0 80px rgba(99, 102, 241, 0.35)",
+              card: "0 24px 60px -24px rgba(15, 23, 42, 0.35)",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 5.5rem;
+        min-height: 100%;
+      }
+      .hero-grid {
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        background-size: 48px 48px;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-gradient-to-br from-[#09090B] via-[#1A1A3D] to-[#3B0B6B] bg-fixed font-sans text-slate-300 antialiased">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink-900"
+    >
+      Skip to content
+    </a>
+
+    <header class="sticky top-0 z-50 border-b border-white/10 bg-[#09090B]/50 backdrop-blur-xl">
+      <nav class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+        <a href="#top" class="flex items-center gap-2.5" aria-label="Orbit home">
+          <span class="relative grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-indigo-400 via-violet-500 to-fuchsia-500 shadow-glow">
+            <svg class="h-5 w-5 text-white" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <circle cx="12" cy="12" r="3" fill="currentColor" />
+              <ellipse cx="12" cy="12" rx="9" ry="4" stroke="currentColor" stroke-width="1.6" />
+              <ellipse cx="12" cy="12" rx="9" ry="4" stroke="currentColor" stroke-width="1.6" transform="rotate(60 12 12)" />
+            </svg>
+          </span>
+          <span class="text-lg font-bold tracking-tight text-white">Orbit</span>
+        </a>
+
+        <ul class="hidden items-center gap-8 text-sm font-medium text-slate-300 lg:flex">
+          <li><a href="#features" class="transition hover:text-white">Features</a></li>
+          <li><a href="#pricing" class="transition hover:text-white">Pricing</a></li>
+          <li><a href="#testimonials" class="transition hover:text-white">Testimonials</a></li>
+        </ul>
+
+        <div class="hidden items-center gap-3 lg:flex">
+          <a href="#pricing" class="text-sm font-medium text-slate-300 transition hover:text-white">Sign in</a>
+          <a
+            href="#pricing"
+            class="rounded-full bg-white px-4 py-2 text-sm font-semibold text-ink-900 shadow-sm transition hover:bg-indigo-50"
+          >
+            Get Started
+          </a>
+        </div>
+
+        <button
+          id="menu-toggle"
+          type="button"
+          class="inline-flex items-center justify-center rounded-lg p-2 text-slate-200 lg:hidden"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+          aria-label="Open menu"
+        >
+          <svg id="icon-open" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 7h16M4 12h16M4 17h16" />
+          </svg>
+          <svg id="icon-close" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </nav>
+
+      <div id="mobile-menu" class="hidden border-t border-white/10 bg-[#09090B]/80 px-4 py-4 backdrop-blur-xl lg:hidden">
+        <ul class="space-y-3 text-sm font-medium text-slate-200">
+          <li><a class="block rounded-lg px-3 py-2 hover:bg-white/5" href="#features">Features</a></li>
+          <li><a class="block rounded-lg px-3 py-2 hover:bg-white/5" href="#pricing">Pricing</a></li>
+          <li><a class="block rounded-lg px-3 py-2 hover:bg-white/5" href="#testimonials">Testimonials</a></li>
+        </ul>
+        <a
+          href="#pricing"
+          class="mt-4 block rounded-full bg-white px-4 py-2.5 text-center text-sm font-semibold text-ink-900"
+        >
+          Get Started
+        </a>
+      </div>
+    </header>
+
+    <main id="main">
+      <section id="top" class="relative overflow-hidden text-white">
+        <div class="pointer-events-none absolute inset-0 hero-grid opacity-70"></div>
+        <div class="pointer-events-none absolute -left-24 top-10 h-72 w-72 rounded-full bg-indigo-500/30 blur-3xl"></div>
+        <div class="pointer-events-none absolute -right-16 top-40 h-80 w-80 rounded-full bg-fuchsia-500/20 blur-3xl"></div>
+
+        <div class="relative mx-auto grid max-w-6xl gap-12 px-4 pb-20 pt-16 sm:px-6 lg:grid-cols-2 lg:items-center lg:gap-16 lg:px-8 lg:pb-28 lg:pt-24">
+          <div>
+            <p class="mb-5 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-medium text-indigo-200">
+              <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+              Now in public beta — 14-day free trial
+            </p>
+            <h1 class="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-[3.4rem] lg:leading-[1.1]">
+              One workspace to plan, ship, and grow.
+            </h1>
+            <p class="mt-5 max-w-xl text-base leading-relaxed text-slate-300 sm:text-lg">
+              Orbit brings roadmaps, analytics, and customer feedback into a single canvas — so product teams stop switching tools and start shipping with clarity.
+            </p>
+            <div class="mt-8 flex flex-col gap-3 sm:flex-row">
+              <a
+                href="#pricing"
+                class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 px-6 py-3 text-sm font-semibold text-white shadow-glow transition hover:from-indigo-400 hover:to-violet-400"
+              >
+                Start free trial
+              </a>
+              <a
+                href="#features"
+                class="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+              >
+                See how it works
+              </a>
+            </div>
+            <p class="mt-5 text-xs text-slate-400">No credit card required · Cancel anytime</p>
+          </div>
+
+          <div class="relative">
+            <div class="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-indigo-500/40 via-violet-500/20 to-fuchsia-500/30 blur-2xl"></div>
+            <div class="relative overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 to-ink-900 p-4 shadow-card sm:p-5">
+              <div class="mb-4 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <span class="h-2.5 w-2.5 rounded-full bg-rose-400"></span>
+                  <span class="h-2.5 w-2.5 rounded-full bg-amber-400"></span>
+                  <span class="h-2.5 w-2.5 rounded-full bg-emerald-400"></span>
+                </div>
+                <span class="rounded-full bg-white/5 px-3 py-1 text-[11px] font-medium text-slate-300">Product pulse</span>
+              </div>
+              <div class="rounded-2xl bg-ink-950/80 p-4 ring-1 ring-white/10">
+                <div class="flex items-end justify-between">
+                  <div>
+                    <p class="text-xs text-slate-400">Weekly activation</p>
+                    <p class="mt-1 text-3xl font-bold tracking-tight text-white">86.4%</p>
+                  </div>
+                  <p class="rounded-full bg-emerald-400/10 px-2.5 py-1 text-xs font-semibold text-emerald-300">+12.8%</p>
+                </div>
+                <div class="mt-6 grid grid-cols-6 items-end gap-2">
+                  <div class="h-10 rounded-md bg-indigo-500/20"></div>
+                  <div class="h-16 rounded-md bg-indigo-500/30"></div>
+                  <div class="h-12 rounded-md bg-indigo-500/25"></div>
+                  <div class="h-24 rounded-md bg-gradient-to-t from-indigo-600 to-violet-400"></div>
+                  <div class="h-20 rounded-md bg-indigo-500/50"></div>
+                  <div class="h-28 rounded-md bg-gradient-to-t from-fuchsia-500 to-indigo-400"></div>
+                </div>
+                <div class="mt-6 grid gap-3 sm:grid-cols-2">
+                  <div class="rounded-xl border border-white/10 bg-white/5 p-3">
+                    <p class="text-[11px] text-slate-400">Cycle time</p>
+                    <p class="mt-1 text-sm font-semibold text-white">3.2 days</p>
+                  </div>
+                  <div class="rounded-xl border border-white/10 bg-white/5 p-3">
+                    <p class="text-[11px] text-slate-400">NPS this sprint</p>
+                    <p class="mt-1 text-sm font-semibold text-white">+47</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-300">Features</p>
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Everything your team needs to stay in orbit</h2>
+          <p class="mt-4 text-slate-300">Replace the spreadsheet stack with a workspace that actually reflects how modern product teams work.</p>
+        </div>
+
+        <div class="mt-14 grid gap-6 md:grid-cols-3">
+          <article class="group rounded-3xl border border-white/10 bg-white/5 p-7 shadow-card backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-indigo-400/40 hover:bg-white/10">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-indigo-500/15 text-indigo-300 transition group-hover:bg-indigo-600 group-hover:text-white">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h10M4 18h7" />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-white">Living roadmaps</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-300">Keep strategy, delivery, and outcomes aligned with boards that update as work lands — not after the next planning meeting.</p>
+          </article>
+
+          <article class="group rounded-3xl border border-white/10 bg-white/5 p-7 shadow-card backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-violet-400/40 hover:bg-white/10">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-violet-500/15 text-violet-300 transition group-hover:bg-violet-600 group-hover:text-white">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M11 3v18M7 8l4-5 4 5M7 16l4 5 4-5" />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-white">Signal, not noise</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-300">Unify usage, support, and qualitative feedback so you can see which bets are compounding and which ones to cut.</p>
+          </article>
+
+          <article class="group rounded-3xl border border-white/10 bg-white/5 p-7 shadow-card backdrop-blur-md transition duration-300 hover:-translate-y-1 hover:border-fuchsia-400/40 hover:bg-white/10">
+            <div class="grid h-12 w-12 place-items-center rounded-2xl bg-fuchsia-500/15 text-fuchsia-300 transition group-hover:bg-fuchsia-600 group-hover:text-white">
+              <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M12 6v6l4 2M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-white">Ship on cadence</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-300">Automate standups, release notes, and stakeholder updates so shipping stays the default, not a scramble.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="pricing" class="border-y border-white/10">
+        <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+          <div class="mx-auto max-w-2xl text-center">
+            <p class="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-300">Pricing</p>
+            <h2 class="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Simple plans that scale with you</h2>
+            <p class="mt-4 text-slate-300">Start free, upgrade when the whole team is in. Annual billing saves two months.</p>
+          </div>
+
+          <div class="mt-8 flex items-center justify-center gap-3">
+            <span id="label-monthly" class="text-sm font-semibold text-white">Monthly</span>
+            <button
+              id="billing-toggle"
+              type="button"
+              class="relative h-8 w-14 rounded-full bg-white/15 transition"
+              role="switch"
+              aria-checked="false"
+              aria-label="Toggle annual billing"
+            >
+              <span id="billing-knob" class="absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition"></span>
+            </button>
+            <span id="label-annual" class="text-sm font-medium text-slate-400">
+              Annual <span class="ml-1 rounded-full bg-indigo-500/20 px-2 py-0.5 text-xs font-semibold text-indigo-200">Save 20%</span>
+            </span>
+          </div>
+
+          <div class="mt-12 grid gap-6 lg:grid-cols-3">
+            <article class="flex flex-col rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-md">
+              <h3 class="text-lg font-semibold text-white">Free</h3>
+              <p class="mt-1 text-sm text-slate-300">For small teams exploring Orbit.</p>
+              <p class="mt-6 flex items-end gap-1">
+                <span class="text-4xl font-extrabold text-white">$0</span>
+                <span class="pb-1 text-sm text-slate-400">/ forever</span>
+              </p>
+              <ul class="mt-6 space-y-3 text-sm text-slate-300">
+                <li>Up to 3 seats</li>
+                <li>1 workspace</li>
+                <li>Core roadmap views</li>
+              </ul>
+              <a href="#top" class="mt-8 inline-flex justify-center rounded-full border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/10">Get started</a>
+            </article>
+
+            <article class="relative flex flex-col rounded-3xl border border-indigo-200 bg-ink-950 p-8 text-white shadow-card ring-1 ring-indigo-400/30">
+              <span class="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 px-3 py-1 text-xs font-semibold">Most popular</span>
+              <h3 class="text-lg font-semibold">Pro</h3>
+              <p class="mt-1 text-sm text-slate-300">For product teams shipping weekly.</p>
+              <p class="mt-6 flex items-end gap-1">
+                <span id="price-pro" class="text-4xl font-extrabold">$29</span>
+                <span class="pb-1 text-sm text-slate-400">/ user / month</span>
+              </p>
+              <ul class="mt-6 space-y-3 text-sm text-slate-300">
+                <li>Unlimited seats</li>
+                <li>Analytics + feedback inbox</li>
+                <li>Automations &amp; integrations</li>
+              </ul>
+              <a href="#top" class="mt-8 inline-flex justify-center rounded-full bg-white px-4 py-2.5 text-sm font-semibold text-ink-900 hover:bg-indigo-50">Start Pro trial</a>
+            </article>
+
+            <article class="flex flex-col rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur-md">
+              <h3 class="text-lg font-semibold text-white">Enterprise</h3>
+              <p class="mt-1 text-sm text-slate-300">Security, scale, and dedicated support.</p>
+              <p class="mt-6 flex items-end gap-1">
+                <span class="text-4xl font-extrabold text-white">Custom</span>
+              </p>
+              <ul class="mt-6 space-y-3 text-sm text-slate-300">
+                <li>SSO, SCIM &amp; audit logs</li>
+                <li>Dedicated success manager</li>
+                <li>Custom data retention</li>
+              </ul>
+              <a href="#top" class="mt-8 inline-flex justify-center rounded-full border border-white/15 bg-white/5 px-4 py-2.5 text-sm font-semibold text-white hover:bg-white/10">Talk to sales</a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="testimonials" class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+        <div class="mx-auto max-w-2xl text-center">
+          <p class="text-sm font-semibold uppercase tracking-[0.18em] text-indigo-300">Testimonials</p>
+          <h2 class="mt-3 text-3xl font-bold tracking-tight text-white sm:text-4xl">Loved by teams who ship</h2>
+        </div>
+        <div class="mt-12 grid gap-6 md:grid-cols-2">
+          <blockquote class="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-card backdrop-blur-md">
+            <p class="text-slate-200">“Orbit replaced three tools we were paying for and finally gave engineering and product the same source of truth.”</p>
+            <footer class="mt-6 text-sm font-semibold text-white">Maya Chen · Head of Product, Northline</footer>
+          </blockquote>
+          <blockquote class="rounded-3xl border border-white/10 bg-white/5 p-8 shadow-card backdrop-blur-md">
+            <p class="text-slate-200">“The weekly pulse view is the first dashboard our execs actually open. Planning meetings are half as long.”</p>
+            <footer class="mt-6 text-sm font-semibold text-white">Luis Ortega · VP Engineering, Helio</footer>
+          </blockquote>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-white/10 text-slate-300">
+      <div class="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-12 sm:px-6 lg:flex-row lg:items-center lg:justify-between lg:px-8">
+        <div>
+          <a href="#top" class="flex items-center gap-2.5">
+            <span class="grid h-8 w-8 place-items-center rounded-lg bg-gradient-to-br from-indigo-400 via-violet-500 to-fuchsia-500">
+              <svg class="h-4 w-4 text-white" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="12" r="3" fill="currentColor" />
+                <ellipse cx="12" cy="12" rx="9" ry="4" stroke="currentColor" stroke-width="1.6" />
+              </svg>
+            </span>
+            <span class="font-semibold text-white">Orbit</span>
+          </a>
+          <p class="mt-3 text-sm text-slate-400">© 2026 Orbit Labs. All rights reserved.</p>
+        </div>
+        <div class="flex items-center gap-4">
+          <a href="https://twitter.com" class="rounded-full border border-white/10 p-2 transition hover:bg-white/10" aria-label="Orbit on X">
+            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.74l7.726-8.835L1.254 2.25H8.08l4.253 5.622L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117z" /></svg>
+          </a>
+          <a href="https://github.com" class="rounded-full border border-white/10 p-2 transition hover:bg-white/10" aria-label="Orbit on GitHub">
+            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2C6.477 2 2 6.486 2 12.021c0 4.424 2.865 8.176 6.839 9.504.5.093.682-.217.682-.483 0-.237-.009-.866-.013-1.7-2.782.605-3.369-1.343-3.369-1.343-.454-1.156-1.11-1.464-1.11-1.464-.908-.621.069-.609.069-.609 1.004.071 1.532 1.033 1.532 1.033.892 1.53 2.341 1.088 2.91.832.091-.647.35-1.088.636-1.339-2.22-.253-4.555-1.113-4.555-4.952 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.944.359.31.678.92.678 1.855 0 1.338-.012 2.419-.012 2.748 0 .268.18.58.688.481A10.019 10.019 0 0022 12.021C22 6.486 17.523 2 12 2z" /></svg>
+          </a>
+          <a href="https://linkedin.com" class="rounded-full border border-white/10 p-2 transition hover:bg-white/10" aria-label="Orbit on LinkedIn">
+            <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z" /></svg>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      const menuToggle = document.getElementById("menu-toggle");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const iconOpen = document.getElementById("icon-open");
+      const iconClose = document.getElementById("icon-close");
+
+      menuToggle.addEventListener("click", () => {
+        const open = mobileMenu.classList.toggle("hidden") === false;
+        menuToggle.setAttribute("aria-expanded", String(open));
+        menuToggle.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+        iconOpen.classList.toggle("hidden", open);
+        iconClose.classList.toggle("hidden", !open);
+      });
+
+      mobileMenu.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+          menuToggle.setAttribute("aria-expanded", "false");
+          menuToggle.setAttribute("aria-label", "Open menu");
+          iconOpen.classList.remove("hidden");
+          iconClose.classList.add("hidden");
+        });
+      });
+
+      const billingToggle = document.getElementById("billing-toggle");
+      const billingKnob = document.getElementById("billing-knob");
+      const pricePro = document.getElementById("price-pro");
+      const labelMonthly = document.getElementById("label-monthly");
+      const labelAnnual = document.getElementById("label-annual");
+      let annual = false;
+
+      billingToggle.addEventListener("click", () => {
+        annual = !annual;
+        billingToggle.setAttribute("aria-checked", String(annual));
+        billingKnob.classList.toggle("translate-x-6", annual);
+        pricePro.textContent = annual ? "$23" : "$29";
+        labelMonthly.classList.toggle("text-white", !annual);
+        labelMonthly.classList.toggle("font-semibold", !annual);
+        labelMonthly.classList.toggle("text-slate-400", annual);
+        labelMonthly.classList.toggle("font-medium", annual);
+        labelAnnual.classList.toggle("text-white", annual);
+        labelAnnual.classList.toggle("font-semibold", annual);
+        labelAnnual.classList.toggle("text-slate-400", !annual);
+        labelAnnual.classList.toggle("font-medium", !annual);
+      });
+    </script>
+  </body>
+</html>
